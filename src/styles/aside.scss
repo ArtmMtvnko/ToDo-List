@@ -37,16 +37,23 @@
         @extend %copyTextPosition;
         @extend %shadowBorders;
 
-        transition: all 1s;
+        transition: all 0.7s;
+
+        &:hover {
+            background-color: #e4e4e4;
+        }
     
         &:focus {
             border: 1px solid #4e864e;
+            background-color: transparent;
             & + label {
-                opacity: 1;
-                transform: translate(0, -24px);
+                transform: translate(0, -28px);
                 margin: 10px 20px;
-                padding: 2px 3px;
+                padding: 4px 5px;
                 border-radius: 5px;
+
+                background-color: #97f697;
+                color: #000;
             }
         }
     }
@@ -54,10 +61,10 @@
     label {
         position: absolute;
         left: 0px;
-        background-color: #97f697;
-        opacity: 0;
+        background-color: transparent;
+        color: #8a8a8a;
         transform: translate(0, 5px);
-        transition: all 1s;
+        transition: all 0.7s;
 
         @extend %copyTextPosition;
     }
