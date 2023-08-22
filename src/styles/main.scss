@@ -1,0 +1,40 @@
+.main {
+    display: grid;
+    grid-template: 1fr / 1fr 2fr;
+    
+    background-color: #f7f7f7;
+    padding: 50px;
+}
+
+.notes-wrap {
+    display: grid;
+    grid-template: minmax(50px, auto) 1fr / minmax(80px, 150px) minmax(200px, 1fr) minmax(80px, 100px);
+    
+    @extend %card;
+
+    .add-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        border-radius: 20px;
+        background-color: #97f697;
+        font-size: 16px;
+
+        svg { margin: 0 10px 0 0; }
+    }
+
+    input {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        margin: 0 0 0 30px;
+        font-size: 20px;
+        padding: 0 20px;
+    }
+
+    .search {
+        background-color: #97f697;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+}
