@@ -56,6 +56,20 @@
                 color: #000;
             }
         }
+
+        &.contain-text {
+            border: 1px solid #4e864e;
+            background-color: transparent;
+            & + label {
+                transform: translate(0, -28px);
+                margin: 10px 20px;
+                padding: 4px 5px;
+                border-radius: 5px;
+
+                background-color: #97f697;
+                color: #000;
+            }
+        }
     }
 
     label {
@@ -79,20 +93,23 @@
     justify-content: space-between;
     align-items: center;
 
+    margin: 15px 0;
     padding: 15px 20px;
     border-radius: 12px;
+    cursor: pointer;
 
     transition: 0.3s;
 
     p {
         font-size: 18px;
         font-weight: 500;
-        cursor: default;
+        cursor: pointer;
     }
 
     img {
         width: 20px;
         cursor: pointer;
+        user-select: none;
     }
 
     &:hover {
