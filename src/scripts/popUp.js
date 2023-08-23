@@ -101,7 +101,7 @@ function showPopUp({title, description, priority, date}) {
 
 
 
-            popUp.append(exitBtn, titleWrap, descriptionWrap, priorityWrap, dateWrap, addButton, cancelButton)
+            popUp.append(exitBtn, titleWrap, descriptionWrap, priorityWrap, dateWrap, applyButton, cancelButton)
             popUpWrap.appendChild(popUp)
             windowWrap.appendChild(popUpWrap)
         }
