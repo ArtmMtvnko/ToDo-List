@@ -3,6 +3,7 @@
 @import "./header.scss";
 @import "./aside.scss";
 @import "./main.scss";
+@import "./priority-buttons.scss";
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -13,6 +14,102 @@ body {
     grid-template: 1fr 9fr / 1fr;
 
     height: 100vh;
+}
+
+.pop-up {
+    position: absolute;
+    z-index: 10;
+
+    display: grid;
+    place-items: center;
+
+    width: 100%;
+    height: 100%;
+    background-color: #00000062;
+}
+
+.pop-up__body {
+    position: relative;
+
+    padding: 20px 40px;
+    background-color: #ebebeb;
+    border-radius: 28px;
+
+    > img {
+        margin: 0;
+        padding: 0 5px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 40px;
+        cursor: pointer;
+        fill: #181818;
+
+        &:hover {
+            background-color: #dedede;
+        }
+    }
+    
+    > * {
+        margin: 0 0 40px 0;
+    }
+
+    p {
+        margin: 10px 0;
+        font-size: 20px;
+    }
+}
+
+%inputStyles {
+    padding: 5px 10px;
+    font-size: 16px
+
+}
+
+.pop-up__title {
+    input {
+        @extend %inputStyles;
+        background-color: transparent;
+        border-bottom: 1px solid #000
+    }
+}
+
+.pop-up__description {
+    textarea {
+        @extend %inputStyles;
+        background-color: transparent;
+        border: 1px solid #000;
+        border-radius: 10px;
+        min-width: 340px;
+        max-width: 1000px;
+        min-height: 120px;
+        max-height: 40vh;
+    }
+}
+
+.pop-up__date {
+    input {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+%pop-up-buttons {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    margin: 0;
+}
+
+.pop-up__add-button {
+    @extend %pop-up-buttons;
+    background-color: #97f697;
+}
+
+.pop-up__cancel-button {
+    @extend %pop-up-buttons;
+    background-color: #f69797;
+    float: right;
 }
 
 %card {

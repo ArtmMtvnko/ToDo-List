@@ -1,6 +1,7 @@
 import './index.html'
 import './styles/index.scss'
 import './scripts/folderInputAnimation.js'
+import './scripts/popUp.js'
 
 import { createFolder } from './scripts/createFolder.js'
 import { Folders } from './scripts/Folders.js'
