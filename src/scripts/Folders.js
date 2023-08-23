@@ -1,9 +1,9 @@
 export class Folders {
     constructor() {
-        this.folders = []
+        this.list = []
     }
 
     addFolder(folder) {
-        this.folders.push(folder)
+        this.list.push(folder)
     }
 }

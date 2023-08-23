@@ -7,7 +7,8 @@ export function createFolder(folderTitle) {
     }
     return {
         ...folder,
-        ...addFolderToList(folder)
+        ...addFolderToList(folder),
+        ...addNotetoArr(folder)
     }
 }
 
@@ -32,7 +33,11 @@ function addFolderToList({folderTitle, notes}) {
                 folder.remove()
             })
 
-            folder.addEventListener('click', () => {
+            folder.addEventListener('click', e => {
+                const folders = document.querySelectorAll('.folder')
+                folders.forEach(folder => folder.classList.remove('active'))
+                e.target.classList.add('active')
+
                 // Delete staff below later!
                 notes.push({
                     noteTitle: 'Test',
@@ -42,6 +47,19 @@ function addFolderToList({folderTitle, notes}) {
                 })
 
                 console.log(notes)
+            })
+        }
+    }
+}
+
+function addNotetoArr({notes}) {
+    return {
+        addNote: ({title, description, priority, date}) => {
+            notes.push({
+                title,
+                description,
+                priority,
+                date
             })
         }
     }
