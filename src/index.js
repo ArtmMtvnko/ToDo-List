@@ -4,11 +4,11 @@ import './scripts/folderInputAnimation.js'
 import './scripts/popUp.js'
 
 import { createFolder } from './scripts/createFolder.js'
-import { Folders } from './scripts/Folders.js'
+import { FolderList } from './scripts/FolderList.js'
 
 import { createPopUp } from './scripts/popUp.js'
 
-const folders = new Folders()
+const folders = FolderList()
 
 const createFolderBtn = document.querySelector('#createFolderBtn')
 const folderNameInput = document.querySelector('#folderName')
@@ -17,7 +17,6 @@ createFolderBtn.addEventListener('click', () => {
     if (folderNameInput.value.trim() === '') return
     const folder = createFolder(folderNameInput.value)
     folder.addFolderToList()
-    folders.addFolder(folder)
 
     folderNameInput.value = ''
 })

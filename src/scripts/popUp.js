@@ -2,6 +2,7 @@ import xmark from '../assets/icons/xmark.svg'
 
 export function createPopUp(title = '', description = '', priority = 'low', date = 0) {
     const params = {
+        done,
         title,
         description,
         priority,

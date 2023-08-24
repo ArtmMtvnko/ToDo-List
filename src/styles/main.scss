@@ -38,3 +38,50 @@
         border-bottom-right-radius: 20px;
     }
 }
+
+.notes {
+    grid-column: 1 / -1;
+
+    display: flex;
+    flex-direction: column;
+    
+    margin: 40px 0;
+}
+
+.notes__item {
+    display: grid;
+    grid-template: 50px minmax(0px, auto) / auto 1fr 1fr 1fr 1fr;
+    justify-items: start;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+
+    input {
+        margin: 0 20px;
+    }
+
+    .notes__title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    img {
+        width: 30px;
+    }
+
+    .notes__arrow-button {
+        justify-self: end;
+        margin: 0 20px;
+    }
+
+    .notes__description {
+        grid-column: 1 / -1;
+
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    &:hover {
+        background-color: #dfdfdf;
+    }
+}
