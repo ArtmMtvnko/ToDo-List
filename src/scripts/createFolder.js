@@ -1,4 +1,5 @@
 import trashBin from '../assets/icons/trash-can.svg'
+import angleDownSvg from '../assets/icons/angle-down.svg'
 
 export function createFolder(folderTitle, ID) {
     const folder = {
@@ -9,7 +10,8 @@ export function createFolder(folderTitle, ID) {
     return {
         ...folder,
         ...addFolderToList(folder),
-        ...addNoteToArr(folder)
+        ...addNoteToArr(folder),
+        ...showNotesImplementor(folder)
     }
 }
 
@@ -36,11 +38,11 @@ function addFolderToList({folderTitle, notes}) {
 
             return folder
 
-            folder.addEventListener('click', e => {
-                const folders = document.querySelectorAll('.folder')
-                folders.forEach(folder => folder.classList.remove('active'))
-                e.target.classList.add('active')
-            })
+            // folder.addEventListener('click', e => {
+            //     const folders = document.querySelectorAll('.folder')
+            //     folders.forEach(folder => folder.classList.remove('active'))
+            //     e.target.classList.add('active')
+            // })
         }
     }
 }
@@ -54,6 +56,66 @@ function addNoteToArr({notes}) {
                 priority,
                 date
             })
+        }
+    }
+}
+
+function showNotesImplementor({notes}) {
+    return {
+        showNotes() {
+            const notesList = document.querySelector('#notesList')
+
+            const oldNotes = notesList.children
+
+            if (oldNotes.length !== 0) {
+                for (let i = 0; i < oldNotes.length; i++) {
+                    oldNotes[i].remove()
+                }
+            }
+
+            if (notes.length === 0) return
+
+            notes.forEach(folderObject => {
+                const note = document.createElement('div')
+                note.classList.add('notes__item')
+                
+                // Checkbox
+                const checkboxInput = document.createElement('input')
+                checkboxInput.type = 'checkbox'
+    
+                // Title
+                const titleParagraph = document.createElement('p')
+                titleParagraph.classList.add('notes__title')
+                titleParagraph.textContent = folderObject.title
+    
+                // Priority
+                const priorityParagraph = document.createElement('p')
+                priorityParagraph.classList.add('notes__priority')
+                priorityParagraph.textContent = folderObject.priority
+    
+                // Date
+                const dateParagraph = document.createElement('p')
+                dateParagraph.classList.add('notes__date')
+                dateParagraph.textContent = folderObject.date
+    
+                // Arrow Button
+                const angleDownBtn = document.createElement('img')
+                angleDownBtn.classList.add('notes__arrow-button')
+                angleDownBtn.src = angleDownSvg
+    
+                // Description
+                const descriptionWrap = document.createElement('div')
+                descriptionWrap.classList.add('notes__description')
+
+                const descriptionParagraph = document.createElement('p')
+                descriptionParagraph.textContent = folderObject.description
+
+                descriptionWrap.appendChild(descriptionParagraph)
+
+                note.append(checkboxInput, titleParagraph, priorityParagraph, dateParagraph, angleDownBtn, descriptionWrap)
+                notesList.appendChild(note)
+            })
+
         }
     }
 }

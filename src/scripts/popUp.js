@@ -1,10 +1,9 @@
 import xmark from '../assets/icons/xmark.svg'
 import { foldersList } from './FolderList.js'
 
-export function createPopUp(currentFolderID, done = false, title = '', description = '', priority = 'low', date = 0) {
+export function createPopUp(currentFolderID, title = '', description = '', priority = 'low', date = 'No date') {
     const params = {
         currentFolderID,
-        done,
         title,
         description,
         priority,
@@ -101,7 +100,18 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
-                
+                const writeToFolder = foldersList.list.find(obj => {
+                    return obj.ID === parseInt(currentFolderID)
+                })
+                console.log(writeToFolder)
+                writeToFolder.addNote({
+                    title: titleInput.value,
+                    description: descriptionTextArea.value,
+                    priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
+                    date: dateInput.value
+                })
+                writeToFolder.showNotes()
+                popUpWrap.remove()
             })
 
             cancelButton.addEventListener('click', () => popUpWrap.remove())
@@ -132,4 +142,8 @@ function createRadioButtons(text, checked = false) {
     label.append(input, span)
 
     return label
+}
+
+function priorityValue(elements) {
+    return elements.find(elem => elem.firstChild.checked).textContent
 }

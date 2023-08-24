@@ -17,7 +17,7 @@ const creatNoteBtn = document.querySelector('#addNote')
 createFolderBtn.addEventListener('click', () => {
     if (folderNameInput.value.trim() === '') return
     let currentID = getID()
-    const folder = createFolder(folderNameInput.value, currentID)
+    const folder = createFolder(folderNameInput.value.trim(), currentID)
 
     const $folder = folder.addFolderToList()
     foldersList.addFolder(folder)
@@ -28,6 +28,8 @@ createFolderBtn.addEventListener('click', () => {
         const folders = document.querySelectorAll('.folder')
         folders.forEach(folder => folder.classList.remove('active'))
         e.target.classList.add('active')
+
+        folder.showNotes()
     })
 
 
