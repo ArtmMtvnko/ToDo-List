@@ -54,7 +54,8 @@ function addNoteToArr({notes}) {
                 title,
                 description,
                 priority,
-                date
+                date,
+                ID: Math.floor(Math.random() * 1000000)
             })
         }
     }

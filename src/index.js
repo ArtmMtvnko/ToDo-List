@@ -8,6 +8,7 @@ import { foldersList } from './scripts/FolderList.js'
 
 import { createPopUp } from './scripts/popUp.js'
 import { getID } from './scripts/getID'
+import { storage } from './scripts/saveData'
 
 const createFolderBtn = document.querySelector('#createFolderBtn')
 const folderNameInput = document.querySelector('#folderName')
@@ -21,6 +22,7 @@ createFolderBtn.addEventListener('click', () => {
 
     const $folder = folder.addFolderToList()
     foldersList.addFolder(folder)
+    storage.updateData(foldersList)
 
     $folder.addEventListener('click', e => {
         creatNoteBtn.setAttribute('folder-id', currentID)

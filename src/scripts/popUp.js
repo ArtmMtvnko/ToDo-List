@@ -1,5 +1,6 @@
 import xmark from '../assets/icons/xmark.svg'
 import { foldersList } from './FolderList.js'
+import { storage } from './saveData'
 
 export function createPopUp(currentFolderID, title = '', description = '', priority = 'low', date = 'No date') {
     const params = {
@@ -112,6 +113,7 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
                 })
                 writeToFolder.showNotes()
                 popUpWrap.remove()
+                storage.updateData(foldersList)
             })
 
             cancelButton.addEventListener('click', () => popUpWrap.remove())
