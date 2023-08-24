@@ -10,6 +10,8 @@
     display: grid;
     grid-template: minmax(50px, auto) 1fr / minmax(80px, 150px) minmax(200px, 1fr) minmax(80px, 100px);
     
+    height: 80vh;
+    overflow-y:scroll;
     @extend %card;
 
     .add-note {
@@ -63,6 +65,8 @@
     border-top-right-radius: 20px;
     overflow: hidden;
 
+    transition: 0.3s;
+
     &.hidden {
         grid-template: 50px 0px / auto 1fr 1fr 1fr 1fr;
         img {
@@ -97,6 +101,7 @@
         width: 30px;
         transform: rotate(180deg);
         transition: 0.3s;
+        cursor: pointer;
     }
 
     .notes__arrow-button {
@@ -110,6 +115,7 @@
         grid-column: 1 / -1;
 
         padding: 20px;
+        line-height: 1.4rem;
         overflow: hidden;
     }
 

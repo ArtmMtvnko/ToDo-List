@@ -65,19 +65,15 @@ function showNotesImplementor({notes}) {
         showNotes() {
             const notesList = document.querySelector('#notesList')
 
-            const oldNotes = notesList.children
-
-            if (oldNotes.length !== 0) {
-                for (let i = 0; i < oldNotes.length; i++) {
-                    oldNotes[i].remove()
-                }
+            while (notesList.firstChild) {
+                notesList.removeChild(notesList.firstChild)
             }
 
             if (notes.length === 0) return
 
             notes.forEach(folderObject => {
                 const note = document.createElement('div')
-                note.classList.add('notes__item')
+                note.classList.add('notes__item', 'hidden')
                 
                 // Checkbox
                 const checkboxInput = document.createElement('input')
@@ -102,6 +98,8 @@ function showNotesImplementor({notes}) {
                 const angleDownBtn = document.createElement('img')
                 angleDownBtn.classList.add('notes__arrow-button')
                 angleDownBtn.src = angleDownSvg
+
+                angleDownBtn.addEventListener('click', () => note.classList.toggle('hidden'))
     
                 // Description
                 const descriptionWrap = document.createElement('div')
