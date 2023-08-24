@@ -1,14 +1,15 @@
 import trashBin from '../assets/icons/trash-can.svg'
 
-export function createFolder(folderTitle) {
+export function createFolder(folderTitle, ID) {
     const folder = {
         folderTitle,
+        ID,
         notes: []
     }
     return {
         ...folder,
         ...addFolderToList(folder),
-        ...addNotetoArr(folder)
+        ...addNoteToArr(folder)
     }
 }
 
@@ -33,26 +34,18 @@ function addFolderToList({folderTitle, notes}) {
                 folder.remove()
             })
 
+            return folder
+
             folder.addEventListener('click', e => {
                 const folders = document.querySelectorAll('.folder')
                 folders.forEach(folder => folder.classList.remove('active'))
                 e.target.classList.add('active')
-
-                // Delete staff below later!
-                notes.push({
-                    noteTitle: 'Test',
-                    description: 'Some description for testing',
-                    priority: 'high',
-                    date: 'No date'
-                })
-
-                console.log(notes)
             })
         }
     }
 }
 
-function addNotetoArr({notes}) {
+function addNoteToArr({notes}) {
     return {
         addNote: ({title, description, priority, date}) => {
             notes.push({

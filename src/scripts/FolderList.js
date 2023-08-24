@@ -1,26 +1,19 @@
-export function FolderList() {
+function FolderList() {
     const folder = {
         list: []
     }
     return {
         ...folder,
-        ...setNoteImplementor(folder),
-        ...getNoteImplementor(folder)
+        ...addFolderImplementor(folder)
     }
 }
 
-function setNoteImplementor({list}) {
+function addFolderImplementor({list}) {
     return {
-        setNote: (noteObj) => {
-            list.push(noteObj)
+        addFolder: (folderObj) => {
+            list.push(folderObj)
         }
     }
 }
 
-function getNoteImplementor({list}) {
-    return {
-        getNotes: () => {
-            return list
-        }
-    }
-}
+export const foldersList = FolderList()

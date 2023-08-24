@@ -1,7 +1,9 @@
 import xmark from '../assets/icons/xmark.svg'
+import { foldersList } from './FolderList.js'
 
-export function createPopUp(title = '', description = '', priority = 'low', date = 0) {
+export function createPopUp(currentFolderID, done = false, title = '', description = '', priority = 'low', date = 0) {
     const params = {
+        currentFolderID,
         done,
         title,
         description,
@@ -14,7 +16,7 @@ export function createPopUp(title = '', description = '', priority = 'low', date
     }
 }
 
-function showPopUp({title, description, priority, date}) {
+function showPopUp({currentFolderID, title, description, priority, date}) {
     return {
         show: () => {
             const windowWrap = document.querySelector('.wrap')
@@ -97,6 +99,10 @@ function showPopUp({title, description, priority, date}) {
             const cancelButton = document.createElement('button')
             cancelButton.classList.add('pop-up__cancel-button', 'close-pop-up')
             cancelButton.textContent = 'Cancel'
+
+            applyButton.addEventListener('click', () => {
+                
+            })
 
             cancelButton.addEventListener('click', () => popUpWrap.remove())
 
