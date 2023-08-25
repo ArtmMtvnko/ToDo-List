@@ -10,6 +10,8 @@ import { createPopUp } from './scripts/popUp.js'
 import { getID } from './scripts/getID'
 import { storage } from './scripts/saveData'
 
+window.onload = () => storage.restoreFolders()
+
 const createFolderBtn = document.querySelector('#createFolderBtn')
 const folderNameInput = document.querySelector('#folderName')
 

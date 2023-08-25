@@ -1,5 +1,3 @@
-let ID = 0;
-
 export function getID() {
-    return ID++
+    return Math.floor(Math.random() * 10000000000)
 }

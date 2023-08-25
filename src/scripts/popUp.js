@@ -104,6 +104,8 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
                 const writeToFolder = foldersList.list.find(obj => {
                     return obj.ID === parseInt(currentFolderID)
                 })
+
+                debugger
                 console.log(writeToFolder)
                 writeToFolder.addNote({
                     title: titleInput.value,
