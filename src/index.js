@@ -3,19 +3,49 @@ import './styles/index.scss'
 import './scripts/folderInputAnimation.js'
 
 import { folders } from './scripts/folderImplementor'
+import { createPopUp } from './scripts/popUp(1)'
+import { data } from './scripts/data'
 
 const folderCreateBtn = document.querySelector('#createFolderBtn')
 const folderInput = document.querySelector('#folderName')
 
+const addNoteBtn = document.querySelector('#addNote')
+
 folderCreateBtn.addEventListener('click', () => {
     const name = folderInput.value.trim()
     if (name === '') return
+    
+    folderInput.value = ''
+    folderInput.classList.remove('contain-text')
 
     const foldersInObj = folders.createFolder(name)
+
     folders.writeFolderToData(foldersInObj.folderObject)
 
-    console.log(folders)
+    foldersInObj.folderDOMNode.addEventListener('click', () => {
+        
+        setActiveClass(foldersInObj.folderDOMNode)
+
+        folders.showNotesInFolder()
+
+        console.log('DATA', data)
+    })
+
+    console.log('Folders', folders)
 })
+
+addNoteBtn.addEventListener('click', () => {
+    const popUp = createPopUp()
+    popUp.show()
+})
+
+function setActiveClass(element) {
+    folders.folders.forEach(obj => {
+        obj.folderNode.classList.remove('active')
+
+        element.classList.add('active')
+    })
+}
 
 
 

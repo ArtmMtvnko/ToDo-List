@@ -1,6 +1,6 @@
 import { foldersList } from "./FolderList";
 import { createFolder } from "./createFolder";
-import { creatNoteBtn } from "../index";
+// import { creatNoteBtn } from "../index";
 
 function saveData() {
     return {

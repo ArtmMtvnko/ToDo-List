@@ -2,9 +2,8 @@ import xmark from '../assets/icons/xmark.svg'
 import { folders } from './folderImplementor'
 import { storage } from './saveData'
 
-export function createPopUp(currentFolderID, title = '', description = '', priority = 'low', date = 'No date') {
+export function createPopUp(title = '', description = '', priority = 'low', date = 'No date') {
     const params = {
-        currentFolderID,
         title,
         description,
         priority,
@@ -16,7 +15,7 @@ export function createPopUp(currentFolderID, title = '', description = '', prior
     }
 }
 
-function showPopUp({currentFolderID, title, description, priority, date}) {
+function showPopUp({title, description, priority, date}) {
     return {
         show: () => {
             const windowWrap = document.querySelector('.wrap')
@@ -101,8 +100,8 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
-                const desiredFolder = document.querySelector('.folder.active')
-                const uniqeID = parseInt(desiredFolder.getAttribute('uniqe-id'))
+                const $desiredFolder = document.querySelector('.folder.active')
+                const uniqeID = parseInt($desiredFolder.getAttribute('uniqe-id'))
                 
                 folders.addNoteToFolder({
                     title: titleInput.value,
@@ -110,6 +109,10 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
                     date: dateInput.value
                 }, uniqeID)
+
+                folders.showNotesInFolder()
+
+                popUpWrap.remove()
             })
 
             cancelButton.addEventListener('click', () => popUpWrap.remove())
