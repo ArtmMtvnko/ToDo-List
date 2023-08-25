@@ -10,6 +10,7 @@ function folderImplementor() {
         ...folders,
         ...createFolderImplementor(folders),
         ...addNoteToFolderImplementor(folders),
+        ...addNoteToDataImplementor(),
         ...showNotesInFolderImplementor(folders)
     }
 }
@@ -39,15 +40,27 @@ function createFolderImplementor({folders}) {
                 notes: []
             })
 
-            folder.addEventListener('click', () => {
-
-            })
-
             console.log(folders)
 
-            // bin.addEventListener('click', () => {
-            //     folder.remove()
-            // })
+            bin.addEventListener('click', () => {
+                const indexToRemoveNode = folders.findIndex(obj => {
+                    return obj.folderNode === folder
+                })
+
+                folders.splice(indexToRemoveNode, 1)
+                
+                console.log(folders)
+                
+                folder.remove()
+
+                const idToRemove = parseInt(folder.getAttribute('uniqe-id'))
+
+                const indexToRemoveData =data.folders.findIndex(folderObj => {
+                    return folderObj.ID === idToRemove
+                })
+
+                data.folders.splice(indexToRemoveData, 1)
+            })
 
             return {
                 folderDOMNode: folder,
@@ -118,12 +131,26 @@ function addNoteToFolderImplementor({folders}) {
     }
 }
 
+function addNoteToDataImplementor() {
+    return {
+        addNoteToData: (note, folderID) => {
+            const requiredFolder = data.folders.find(folderObj => {
+                return folderObj.ID === folderID
+            })
+
+            requiredFolder.notes.push(note)
+        }
+    }
+}
+
 function showNotesInFolderImplementor({folders}) {
     return {
         showNotesInFolder: () => {
             const requiredFolderObj = folders.find(folder => {
                 return folder.folderNode.classList.contains('active')
             })
+
+            if (requiredFolderObj === undefined) return
 
             const notesList = document.querySelector('#notesList')
 

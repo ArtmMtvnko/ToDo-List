@@ -110,6 +110,13 @@ function showPopUp({title, description, priority, date}) {
                     date: dateInput.value
                 }, uniqeID)
 
+                folders.addNoteToData({
+                    title: titleInput.value,
+                    description: descriptionTextArea.value,
+                    priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
+                    date: dateInput.value
+                }, uniqeID)
+
                 folders.showNotesInFolder()
 
                 popUpWrap.remove()
