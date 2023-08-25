@@ -10,7 +10,11 @@ const folderInput = document.querySelector('#folderName')
 folderCreateBtn.addEventListener('click', () => {
     const name = folderInput.value.trim()
     if (name === '') return
-    folders.createFolder(name)
+
+    const foldersInObj = folders.createFolder(name)
+    folders.writeFolderToData(foldersInObj.folderObject)
+
+    console.log(folders)
 })
 
 

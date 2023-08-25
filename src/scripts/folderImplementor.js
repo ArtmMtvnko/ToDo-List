@@ -1,4 +1,5 @@
 import trashBin from '../assets/icons/trash-can.svg'
+import { data } from './data'
 
 function folderImplementor() {
     const folders = {
@@ -6,7 +7,8 @@ function folderImplementor() {
     }
     return {
         ...folders,
-        ...createFolderImplementor(folders)
+        ...createFolderImplementor(folders),
+        ...addNoteToFolderImplementor(folders)
     }
 }
 
@@ -24,18 +26,44 @@ function createFolderImplementor({folders}) {
 
             folder.appendChild(folderName)
             folder.appendChild(bin)
-            folder.setAttribute('uniqe-id', Math.floor(Math.random() * 10000000000))
+
+            const ID = Math.floor(Math.random() * 10000000000)
+            folder.setAttribute('uniqe-id', ID)
 
             folderList.appendChild(folder)
+
+            folders.push(folder)
+
+            folder.addEventListener('click', () => {
+
+            })
+
+            console.log(folders)
 
             // bin.addEventListener('click', () => {
             //     folder.remove()
             // })
 
-            return folder
+            return {
+                folderDOMNode: folder,
+                folderObject: {
+                    title,
+                    ID,
+                    notes: []
+                }
+            }
         },
-        writeFolderToData: () => {
+        writeFolderToData: (folderObj) => {
+            data.folders.push(folderObj)
+            console.log('Data', data)
+        }
+    }
+}
 
+function addNoteToFolderImplementor({folders}) {
+    return {
+        addNoteToFolder: (note, folderID) => {
+            
         }
     }
 }
