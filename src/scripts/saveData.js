@@ -1,5 +1,6 @@
 import { foldersList } from "./FolderList";
 import { createFolder } from "./createFolder";
+import { creatNoteBtn } from "../index";
 
 function saveData() {
     return {
@@ -38,6 +39,8 @@ function restoreFoldersImplementor() {
                 const $folder = folder.addFolderToList()
 
                 $folder.addEventListener('click', e => {
+                    creatNoteBtn.setAttribute('folder-id', fold.ID)
+                    
                     const folders = document.querySelectorAll('.folder')
                     folders.forEach(folder => folder.classList.remove('active'))
                     e.target.classList.add('active')
