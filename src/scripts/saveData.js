@@ -1,56 +1,54 @@
-import { foldersList } from "./FolderList";
-import { createFolder } from "./createFolder";
-// import { creatNoteBtn } from "../index";
+import { data } from "./data"
+import { folders } from "./folderImplementor"
+import { setActiveClass } from "./setActiveClass"
 
 function saveData() {
     return {
         ...addToStorageImplementor(),
-        ...restoreFoldersImplementor()
+        ...loadSavedDataImplementor()
     }
 }
 
 function addToStorageImplementor() {
     return {
-        updateData: (foldersObj) => {
+        updateData: () => {
             localStorage.removeItem('data')
             
-            const data = JSON.stringify(foldersObj)
-            localStorage.setItem('data', data)
+            const dataStorage = JSON.stringify(data)
+            localStorage.setItem('data', dataStorage)
         }
     }
 }
 
-function restoreFoldersImplementor() {
+function loadSavedDataImplementor() {
     return {
-        restoreFolders: () => {
-            const dataFromStorage = JSON.parse(localStorage.getItem('data'))
+        loadSavedData: () => {
+            data.setData(JSON.parse(localStorage.getItem('data')))
+            
+            data.folders.forEach(folderObj => {
+                const foldersObject = folders.createFolder(folderObj.title, folderObj.ID)
 
-            foldersList.setNewFolders(dataFromStorage.list)
-
-
-            const foldersToRestore = foldersList.list
-
-            foldersToRestore.forEach(fold => {
-                const folder = createFolder(fold.folderTitle, fold.ID)
-
-                fold.notes.forEach(note => folder.addNote(note))
-
-
-                const $folder = folder.addFolderToList()
-
-                $folder.addEventListener('click', e => {
-                    creatNoteBtn.setAttribute('folder-id', fold.ID)
-                    
-                    const folders = document.querySelectorAll('.folder')
-                    folders.forEach(folder => folder.classList.remove('active'))
-                    e.target.classList.add('active')
-
-                    folder.showNotes()
+                foldersObject.folderDOMNode.addEventListener('click', () => {
+        
+                    setActiveClass(foldersObject.folderDOMNode)
+            
+                    folders.showNotesInFolder()
+            
+                    console.log('DATA', data)
                 })
+
+                folderObj.notes.forEach(note => {
+                    folders.addNoteToFolder({
+                        title: note.title,
+                        description: note.description,
+                        priority: note.priority,
+                        date: note.date
+                    }, folderObj.ID)
+                })
+
             })
 
-
-            console.log(foldersList)
+            console.log('FOLDERS', folders)
         }
     }
 }

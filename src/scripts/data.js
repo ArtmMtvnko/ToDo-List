@@ -1,3 +1,8 @@
 export const data = {
-    folders: []
+    folders: [],
+    setData(parsedData) {
+        parsedData.folders.forEach(folder => {
+            this.folders.push(folder)
+        })
+    }
 }

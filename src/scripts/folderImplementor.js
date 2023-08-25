@@ -1,6 +1,7 @@
 import angleDownSvg from '../assets/icons/angle-down.svg'
 import trashBin from '../assets/icons/trash-can.svg'
 import { data } from './data'
+import { storage } from './saveData'
 
 function folderImplementor() {
     const folders = {
@@ -17,7 +18,7 @@ function folderImplementor() {
 
 function createFolderImplementor({folders}) {
     return {
-        createFolder: (title) => {
+        createFolder: (title, setID = null) => {
             const folderList = document.querySelector('#foldersList')
             const folder = document.createElement('div')
             folder.classList.add('folder')
@@ -30,7 +31,14 @@ function createFolderImplementor({folders}) {
             folder.appendChild(folderName)
             folder.appendChild(bin)
 
-            const ID = Math.floor(Math.random() * 10000000000)
+            let ID
+
+            if (setID === null) {
+                ID = Math.floor(Math.random() * 10000000000)
+            } else {
+                ID = setID
+            }
+
             folder.setAttribute('uniqe-id', ID)
 
             folderList.appendChild(folder)
@@ -50,7 +58,7 @@ function createFolderImplementor({folders}) {
                 folders.splice(indexToRemoveNode, 1)
                 
                 console.log(folders)
-                
+
                 folder.remove()
 
                 const idToRemove = parseInt(folder.getAttribute('uniqe-id'))
@@ -60,6 +68,8 @@ function createFolderImplementor({folders}) {
                 })
 
                 data.folders.splice(indexToRemoveData, 1)
+
+                storage.updateData()
             })
 
             return {

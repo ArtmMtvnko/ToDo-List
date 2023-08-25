@@ -5,6 +5,10 @@ import './scripts/folderInputAnimation.js'
 import { folders } from './scripts/folderImplementor'
 import { createPopUp } from './scripts/popUp(1)'
 import { data } from './scripts/data'
+import { storage } from './scripts/saveData'
+import { setActiveClass } from './scripts/setActiveClass'
+
+window.onload = () => storage.loadSavedData()
 
 const folderCreateBtn = document.querySelector('#createFolderBtn')
 const folderInput = document.querySelector('#folderName')
@@ -18,18 +22,20 @@ folderCreateBtn.addEventListener('click', () => {
     folderInput.value = ''
     folderInput.classList.remove('contain-text')
 
-    const foldersInObj = folders.createFolder(name)
+    const foldersObject = folders.createFolder(name)
 
-    folders.writeFolderToData(foldersInObj.folderObject)
+    folders.writeFolderToData(foldersObject.folderObject)
 
-    foldersInObj.folderDOMNode.addEventListener('click', () => {
+    foldersObject.folderDOMNode.addEventListener('click', () => {
         
-        setActiveClass(foldersInObj.folderDOMNode)
+        setActiveClass(foldersObject.folderDOMNode)
 
         folders.showNotesInFolder()
 
         console.log('DATA', data)
     })
+
+    storage.updateData()
 
     console.log('Folders', folders)
 })
@@ -39,13 +45,6 @@ addNoteBtn.addEventListener('click', () => {
     popUp.show()
 })
 
-function setActiveClass(element) {
-    folders.folders.forEach(obj => {
-        obj.folderNode.classList.remove('active')
-
-        element.classList.add('active')
-    })
-}
 
 
 

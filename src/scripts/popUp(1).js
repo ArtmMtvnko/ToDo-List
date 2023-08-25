@@ -118,6 +118,7 @@ function showPopUp({title, description, priority, date}) {
                 }, uniqeID)
 
                 folders.showNotesInFolder()
+                storage.updateData()
 
                 popUpWrap.remove()
             })
