@@ -73,6 +73,9 @@ function createFolderImplementor({folders}) {
                 data.folders.splice(indexToRemoveData, 1)
 
                 storage.updateData()
+
+                const notesList = document.querySelector('#notesList')
+                notesList.innerHTML = ''
             })
 
             return {
