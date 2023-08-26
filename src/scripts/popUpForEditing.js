@@ -2,7 +2,7 @@ import xmark from '../assets/icons/xmark.svg'
 import { storage } from './saveData'
 import { data } from './data'
 
-import { priorityValue, createRadioButtons } from './popUp(1)'
+import { priorityValue, createRadioButtons } from './popUp'
 
 function createPopUpForEditing() {
     return {
@@ -96,6 +96,7 @@ function createPopUpWindowImplementor() {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
+                debugger
                 const priorityToWrite = priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn])
                 
                 noteNode.querySelector('.notes__title').textContent = titleInput.value

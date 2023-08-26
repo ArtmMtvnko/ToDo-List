@@ -1,9 +1,9 @@
 import './index.html'
 import './styles/index.scss'
-import './scripts/folderInputAnimation.js'
+import './scripts/folderInputAnimation'
 
 import { folders } from './scripts/folderImplementor'
-import { createPopUp } from './scripts/popUp(1)'
+import { createPopUp } from './scripts/popUp'
 import { data } from './scripts/data'
 import { storage } from './scripts/saveData'
 import { setActiveClass } from './scripts/setActiveClass'

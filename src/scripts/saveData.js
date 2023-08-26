@@ -42,7 +42,8 @@ function loadSavedDataImplementor() {
                         title: note.title,
                         description: note.description,
                         priority: note.priority,
-                        date: note.date
+                        date: note.date === '' ? 'No date' : note.date,
+                        ID: note.ID
                     }, folderObj.ID)
                 })
 

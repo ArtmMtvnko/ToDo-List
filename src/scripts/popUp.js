@@ -1,10 +1,9 @@
 import xmark from '../assets/icons/xmark.svg'
-import { foldersList } from './FolderList.js'
+import { folders } from './folderImplementor'
 import { storage } from './saveData'
 
-export function createPopUp(currentFolderID, title = '', description = '', priority = 'low', date = 'No date') {
+export function createPopUp(title = '', description = '', priority = 'low', date = 'No date') {
     const params = {
-        currentFolderID,
         title,
         description,
         priority,
@@ -16,7 +15,7 @@ export function createPopUp(currentFolderID, title = '', description = '', prior
     }
 }
 
-function showPopUp({currentFolderID, title, description, priority, date}) {
+function showPopUp({title, description, priority, date}) {
     return {
         show: () => {
             const windowWrap = document.querySelector('.wrap')
@@ -101,21 +100,30 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
-                const writeToFolder = foldersList.list.find(obj => {
-                    return obj.ID === parseInt(currentFolderID)
-                })
-                debugger
-
-                console.log(writeToFolder)
-                writeToFolder.addNote({
+                const $desiredFolder = document.querySelector('.folder.active')
+                const uniqeID = parseInt($desiredFolder.getAttribute('uniqe-id'))
+                const noteUniqeId = Math.floor(Math.random() * 10000000000)
+                
+                folders.addNoteToFolder({
                     title: titleInput.value,
                     description: descriptionTextArea.value,
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value
-                })
-                writeToFolder.showNotes()
+                    date: dateInput.value === '' ? 'No date' : dateInput.value,
+                    ID: noteUniqeId
+                }, uniqeID)
+
+                folders.addNoteToData({
+                    title: titleInput.value,
+                    description: descriptionTextArea.value,
+                    priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
+                    date: dateInput.value,
+                    ID: noteUniqeId
+                }, uniqeID)
+
+                folders.showNotesInFolder()
+                storage.updateData()
+
                 popUpWrap.remove()
-                storage.updateData(foldersList)
             })
 
             cancelButton.addEventListener('click', () => popUpWrap.remove())
@@ -129,7 +137,7 @@ function showPopUp({currentFolderID, title, description, priority, date}) {
     }
 }
 
-function createRadioButtons(text, checked = false) {
+export function createRadioButtons(text, checked = false) {
     const label = document.createElement('label')
     label.classList.add('radio')
 
@@ -148,6 +156,6 @@ function createRadioButtons(text, checked = false) {
     return label
 }
 
-function priorityValue(elements) {
+export function priorityValue(elements) {
     return elements.find(elem => elem.firstChild.checked).textContent
 }
