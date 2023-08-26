@@ -209,7 +209,7 @@ function addNoteToDataImplementor() {
 
 function showNotesInFolderImplementor({folders}) {
     return {
-        showNotesInFolder: () => {
+        showNotesInFolder: (filters = null) => {
             const requiredFolderObj = folders.find(folder => {
                 return folder.folderNode.classList.contains('active')
             })
@@ -222,6 +222,24 @@ function showNotesInFolderImplementor({folders}) {
             //     notesList.removeChild(notesList.firstChild)
             // }
             notesList.innerHTML = ''
+
+            if (filters !== null) {
+                const keyWord = filters.trim()
+
+                for (const note of requiredFolderObj.notes) {
+                    const title = note.querySelector('.notes__title')
+                    if (title.textContent.includes(keyWord)) {
+                        notesList.appendChild(note)
+                        continue
+                    }
+                    const description = note.querySelector('.notes__description').firstChild
+                    if (description.textContent.includes(keyWord)) {
+                        notesList.appendChild(note)
+                    }
+                }
+                
+                return
+            }
 
             requiredFolderObj.notes.forEach(note => {
                 notesList.appendChild(note)

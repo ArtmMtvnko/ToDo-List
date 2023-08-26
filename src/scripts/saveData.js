@@ -1,6 +1,7 @@
 import { data } from "./data"
 import { folders } from "./folderImplementor"
 import { setActiveClass } from "./setActiveClass"
+import { addNoteBtn } from "../index"
 
 function saveData() {
     return {
@@ -29,6 +30,7 @@ function loadSavedDataImplementor() {
                 const foldersObject = folders.createFolder(folderObj.title, folderObj.ID)
 
                 foldersObject.folderDOMNode.addEventListener('click', () => {
+                    addNoteBtn.classList.remove('inactive')
         
                     setActiveClass(foldersObject.folderDOMNode)
             

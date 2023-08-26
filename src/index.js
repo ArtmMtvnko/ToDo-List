@@ -13,6 +13,9 @@ window.onload = () => storage.loadSavedData()
 const folderCreateBtn = document.querySelector('#createFolderBtn')
 const folderInput = document.querySelector('#folderName')
 
+const searchInput = document.querySelector('#searchInput')
+const searchBtn = document.querySelector('#searhBtn')
+
 export const addNoteBtn = document.querySelector('#addNote')
 addNoteBtn.classList.add('inactive')
 
@@ -47,4 +50,9 @@ addNoteBtn.addEventListener('click', () => {
     
     const popUp = createPopUp()
     popUp.show()
+})
+
+searchBtn.addEventListener('click', () => {
+    folders.showNotesInFolder(searchInput.value)
+    searchInput.value = ''
 })
