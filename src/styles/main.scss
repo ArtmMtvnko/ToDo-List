@@ -57,7 +57,7 @@
 
 .notes__item {
     display: grid;
-    grid-template: 50px auto / auto 1fr 1fr 1fr 1fr;
+    grid-template: 50px auto / auto repeat(6, 1fr);
 
     margin: 10px 0;
     border-bottom: 1px solid #212121;
@@ -68,8 +68,8 @@
     transition: 0.3s;
 
     &.hidden {
-        grid-template: 50px 0px / auto 1fr 1fr 1fr 1fr;
-        img {
+        grid-template: 50px 0px / auto repeat(6, 1fr);
+        .notes__arrow-button {
             transform: rotate(0deg);
         }
     }
@@ -98,10 +98,17 @@
     }
 
     img {
+        width: 20px;
+        cursor: pointer;
+        user-select: none;
+        justify-self: end;
+        align-self: center;
+    }
+
+    .notes__arrow-button {
         width: 30px;
         transform: rotate(180deg);
         transition: 0.3s;
-        cursor: pointer;
     }
 
     .notes__arrow-button {

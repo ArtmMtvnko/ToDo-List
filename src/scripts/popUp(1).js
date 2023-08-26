@@ -107,7 +107,7 @@ function showPopUp({title, description, priority, date}) {
                     title: titleInput.value,
                     description: descriptionTextArea.value,
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value
+                    date: dateInput.value === '' ? 'No date' : dateInput.value
                 }, uniqeID)
 
                 folders.addNoteToData({

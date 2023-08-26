@@ -1,5 +1,7 @@
 import angleDownSvg from '../assets/icons/angle-down.svg'
 import trashBin from '../assets/icons/trash-can.svg'
+import editSvg from '../assets/icons/edit.svg'
+
 import { data } from './data'
 import { storage } from './saveData'
 
@@ -118,6 +120,16 @@ function addNoteToFolderImplementor({folders}) {
             dateParagraph.classList.add('notes__date')
             dateParagraph.textContent = note.date
 
+            // Edit Btn
+
+            const editBtn = document.createElement('img')
+            editBtn.src = editSvg
+
+            // Delete Btn
+
+            const deleteBtn = document.createElement('img')
+            deleteBtn.src = trashBin
+
             // Arrow Button
             const angleDownBtn = document.createElement('img')
             angleDownBtn.classList.add('notes__arrow-button')
@@ -134,7 +146,7 @@ function addNoteToFolderImplementor({folders}) {
 
             descriptionWrap.appendChild(descriptionParagraph)
 
-            noteNode.append(checkboxInput, titleParagraph, priorityParagraph, dateParagraph, angleDownBtn, descriptionWrap)
+            noteNode.append(checkboxInput, titleParagraph, priorityParagraph, dateParagraph, editBtn, deleteBtn, angleDownBtn, descriptionWrap)
             
             requiredFolder.notes.push(noteNode)
         }
