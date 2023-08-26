@@ -121,14 +121,24 @@ function addNoteToFolderImplementor({folders}) {
             dateParagraph.textContent = note.date
 
             // Edit Btn
-
             const editBtn = document.createElement('img')
             editBtn.src = editSvg
 
             // Delete Btn
-
             const deleteBtn = document.createElement('img')
             deleteBtn.src = trashBin
+
+            deleteBtn.addEventListener('click', () => {
+                const requiredFolder = folders.find(folder => folder.folderNode.classList.contains('active'))
+                const indexToRemoveNode = requiredFolder.notes.findIndex(note => note === noteNode)
+                requiredFolder.notes.splice(indexToRemoveNode, 1)
+                noteNode.remove()
+
+                // const uniqeID = parseInt(requiredFolder.getAttribute('uniqe-id'))
+
+                // const requiredFolderFromData = data.folders.find(folderObj => folderObj.ID === uniqeID)
+                // requiredFolderFromData.notes
+            })
 
             // Arrow Button
             const angleDownBtn = document.createElement('img')
