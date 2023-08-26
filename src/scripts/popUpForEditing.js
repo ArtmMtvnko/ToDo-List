@@ -96,12 +96,11 @@ function createPopUpWindowImplementor() {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
-                debugger
                 const priorityToWrite = priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn])
                 
                 noteNode.querySelector('.notes__title').textContent = titleInput.value
                 noteNode.querySelector('.notes__priority').textContent = priorityToWrite
-                noteNode.querySelector('.notes__date').textContent = dateInput.value
+                noteNode.querySelector('.notes__date').textContent = dateInput.value === '' ? 'No date' : dateInput.value
                 noteNode.querySelector('.notes__description').firstChild.textContent = descriptionTextArea.value
 
                 const currentFolderID = parseInt(document.querySelector('.folder.active').getAttribute('uniqe-id'))
