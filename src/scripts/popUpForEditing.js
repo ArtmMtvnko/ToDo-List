@@ -1,23 +1,18 @@
 import xmark from '../assets/icons/xmark.svg'
-import { folders } from './folderImplementor'
 import { storage } from './saveData'
+import { data } from './data'
 
-export function createPopUp(title = '', description = '', priority = 'low', date = 'No date') {
-    const params = {
-        title,
-        description,
-        priority,
-        date
-    }
+import { priorityValue, createRadioButtons } from './popUp(1)'
+
+function createPopUpForEditing() {
     return {
-        ...params,
-        ...showPopUp(params)
+        ...createPopUpWindowImplementor()
     }
 }
 
-function showPopUp({title, description, priority, date}) {
+function createPopUpWindowImplementor() {
     return {
-        show: () => {
+        createPopUpWindow: (noteNode, params) => {
             const windowWrap = document.querySelector('.wrap')
             
             const popUpWrap = document.createElement('div')
@@ -41,7 +36,7 @@ function showPopUp({title, description, priority, date}) {
             const titleInput = document.createElement('input')
             titleInput.type = 'text'
             titleInput.placeholder = 'Your title'
-            titleInput.value = title
+            titleInput.value = params.title
 
             titleWrap.append(titleParagraph, titleInput)
 
@@ -56,7 +51,7 @@ function showPopUp({title, description, priority, date}) {
             descriptionTextArea.placeholder = 'Your description'
             descriptionTextArea.cols = 30
             descriptionTextArea.rows = 10
-            descriptionTextArea.value = description
+            descriptionTextArea.value = params.description
 
             descriptionWrap.append(descriptionParagraph, descriptionTextArea)
 
@@ -70,9 +65,9 @@ function showPopUp({title, description, priority, date}) {
             const radioBtnsWrap = document.createElement('div')
             radioBtnsWrap.classList.add('radio-inputs')
 
-            const lowPriorityBtn = createRadioButtons('Low', true)
-            const mediumPriorityBtn = createRadioButtons('Medium')
-            const highPriorityBtn = createRadioButtons('High')
+            const lowPriorityBtn = createRadioButtons('Low', params.isLow())
+            const mediumPriorityBtn = createRadioButtons('Medium', params.isMedium())
+            const highPriorityBtn = createRadioButtons('High', params.isHigh())
 
             radioBtnsWrap.append(lowPriorityBtn, mediumPriorityBtn, highPriorityBtn)
 
@@ -87,6 +82,7 @@ function showPopUp({title, description, priority, date}) {
 
             const dateInput = document.createElement('input')
             dateInput.type = 'date'
+            dateInput.value = params.date
 
             dateWrap.append(dateParagraph, dateInput)
 
@@ -100,29 +96,24 @@ function showPopUp({title, description, priority, date}) {
             cancelButton.textContent = 'Cancel'
 
             applyButton.addEventListener('click', () => {
-                const $desiredFolder = document.querySelector('.folder.active')
-                const uniqeID = parseInt($desiredFolder.getAttribute('uniqe-id'))
-                const noteUniqeId = Math.floor(Math.random() * 10000000000)
+                const priorityToWrite = priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn])
                 
-                folders.addNoteToFolder({
-                    title: titleInput.value,
-                    description: descriptionTextArea.value,
-                    priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value === '' ? 'No date' : dateInput.value,
-                    ID: noteUniqeId
-                }, uniqeID)
+                noteNode.querySelector('.notes__title').textContent = titleInput.value
+                noteNode.querySelector('.notes__priority').textContent = priorityToWrite
+                noteNode.querySelector('.notes__date').textContent = dateInput.value
+                noteNode.querySelector('.notes__description').firstChild.textContent = descriptionTextArea.value
 
-                folders.addNoteToData({
-                    title: titleInput.value,
-                    description: descriptionTextArea.value,
-                    priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value,
-                    ID: noteUniqeId
-                }, uniqeID)
+                const currentFolderID = parseInt(document.querySelector('.folder.active').getAttribute('uniqe-id'))
+                const currentNoteID = parseInt(noteNode.getAttribute('uniqe-id'))
 
-                folders.showNotesInFolder()
+                const requiredFolder = data.folders.find(folderObj => folderObj.ID === currentFolderID)
+                const requiredNote = requiredFolder.notes.find(note => note.ID === currentNoteID)
+                requiredNote.title = titleInput.value
+                requiredNote.description = descriptionTextArea.value
+                requiredNote.priority = priorityToWrite
+                requiredNote.date = dateInput.value
+
                 storage.updateData()
-
                 popUpWrap.remove()
             })
 
@@ -137,25 +128,4 @@ function showPopUp({title, description, priority, date}) {
     }
 }
 
-export function createRadioButtons(text, checked = false) {
-    const label = document.createElement('label')
-    label.classList.add('radio')
-
-    const input = document.createElement('input')
-    input.type = 'radio'
-    input.name = 'radio'
-    
-    if (checked) input.setAttribute('checked', "")
-
-    const span = document.createElement('span')
-    span.classList.add('name')
-    span.textContent = text
-
-    label.append(input, span)
-
-    return label
-}
-
-export function priorityValue(elements) {
-    return elements.find(elem => elem.firstChild.checked).textContent
-}
+export const popUpForEditing = createPopUpForEditing()

@@ -4,6 +4,7 @@ import editSvg from '../assets/icons/edit.svg'
 
 import { data } from './data'
 import { storage } from './saveData'
+import { popUpForEditing } from './popUpForEditing'
 
 function folderImplementor() {
     const folders = {
@@ -120,48 +121,67 @@ function addNoteToFolderImplementor({folders}) {
             const dateParagraph = document.createElement('p')
             dateParagraph.classList.add('notes__date')
             dateParagraph.textContent = note.date
-
-            // Edit Btn
-            const editBtn = document.createElement('img')
-            editBtn.src = editSvg
-
+            
             // Delete Btn
             const deleteBtn = document.createElement('img')
             deleteBtn.src = trashBin
-
+            
             deleteBtn.addEventListener('click', () => {
-                debugger
-
                 const requiredFolder = folders.find(folder => folder.folderNode.classList.contains('active'))
                 const indexToRemoveNode = requiredFolder.notes.findIndex(note => note === noteNode)
                 requiredFolder.notes.splice(indexToRemoveNode, 1)
                 noteNode.remove()
-
+                
                 const uniqeID = parseInt(requiredFolder.folderNode.getAttribute('uniqe-id'))
                 const noteUniqeId = parseInt(noteNode.getAttribute('uniqe-id'))
-
+                
                 const requiredFolderFromData = data.folders.find(folderObj => folderObj.ID === uniqeID)
                 const indexToRemoveNodeFromData = requiredFolderFromData.notes.findIndex(note => note.ID === noteUniqeId)
                 requiredFolderFromData.notes.splice(indexToRemoveNodeFromData, 1)
                 storage.updateData()
             })
-
+            
             // Arrow Button
             const angleDownBtn = document.createElement('img')
             angleDownBtn.classList.add('notes__arrow-button')
             angleDownBtn.src = angleDownSvg
-
+            
             angleDownBtn.addEventListener('click', () => noteNode.classList.toggle('hidden'))
-
+            
             // Description
             const descriptionWrap = document.createElement('div')
             descriptionWrap.classList.add('notes__description')
-
+            
             const descriptionParagraph = document.createElement('p')
             descriptionParagraph.textContent = note.description
 
-            descriptionWrap.appendChild(descriptionParagraph)
+            // Edit Btn
+            const editBtn = document.createElement('img')
+            editBtn.src = editSvg
 
+            editBtn.addEventListener('click', () => {
+                popUpForEditing.createPopUpWindow(noteNode, {
+                    title: titleParagraph.textContent,
+                    description: descriptionParagraph.textContent,
+                    date: dateParagraph.textContent,
+                    isLow() {
+                        return priorityParagraph.textContent === 'Low' ? true : false
+                    },
+                    isMedium() {
+                        return priorityParagraph.textContent === 'Medium' ? true : false
+                    },
+                    isHigh() {
+                        return priorityParagraph.textContent === 'High' ? true : false
+                    }
+                })
+            })
+
+
+            // HERE !!!!!!!!!!!!
+
+            // Concatination
+            descriptionWrap.appendChild(descriptionParagraph)
+            
             noteNode.append(checkboxInput, titleParagraph, priorityParagraph, dateParagraph, editBtn, deleteBtn, angleDownBtn, descriptionWrap)
             
             requiredFolder.notes.push(noteNode)
