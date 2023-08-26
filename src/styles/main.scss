@@ -24,6 +24,16 @@
         font-size: 16px;
 
         svg { margin: 0 10px 0 0; }
+
+        &.inactive {
+            background-color: #c9f6c9;
+            color: #5b5b5b;
+            cursor: default;
+
+            svg {
+                fill: #818181;
+            }
+        }
     }
 
     input {

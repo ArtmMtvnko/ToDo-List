@@ -5,6 +5,7 @@ import editSvg from '../assets/icons/edit.svg'
 import { data } from './data'
 import { storage } from './saveData'
 import { popUpForEditing } from './popUpForEditing'
+import { addNoteBtn } from '../index'
 
 function folderImplementor() {
     const folders = {
@@ -54,6 +55,8 @@ function createFolderImplementor({folders}) {
             console.log(folders)
 
             bin.addEventListener('click', () => {
+                setTimeout(() => addNoteBtn.classList.add('inactive'), 0)
+                
                 const indexToRemoveNode = folders.findIndex(obj => {
                     return obj.folderNode === folder
                 })

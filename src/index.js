@@ -13,7 +13,8 @@ window.onload = () => storage.loadSavedData()
 const folderCreateBtn = document.querySelector('#createFolderBtn')
 const folderInput = document.querySelector('#folderName')
 
-const addNoteBtn = document.querySelector('#addNote')
+export const addNoteBtn = document.querySelector('#addNote')
+addNoteBtn.classList.add('inactive')
 
 folderCreateBtn.addEventListener('click', () => {
     const name = folderInput.value.trim()
@@ -27,6 +28,7 @@ folderCreateBtn.addEventListener('click', () => {
     folders.writeFolderToData(foldersObject.folderObject)
 
     foldersObject.folderDOMNode.addEventListener('click', () => {
+        addNoteBtn.classList.remove('inactive')
         
         setActiveClass(foldersObject.folderDOMNode)
 
@@ -41,7 +43,8 @@ folderCreateBtn.addEventListener('click', () => {
 })
 
 addNoteBtn.addEventListener('click', () => {
+    if (addNoteBtn.classList.contains('inactive')) return
+    
     const popUp = createPopUp()
     popUp.show()
 })
-
