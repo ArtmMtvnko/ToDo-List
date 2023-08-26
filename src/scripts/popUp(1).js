@@ -102,19 +102,22 @@ function showPopUp({title, description, priority, date}) {
             applyButton.addEventListener('click', () => {
                 const $desiredFolder = document.querySelector('.folder.active')
                 const uniqeID = parseInt($desiredFolder.getAttribute('uniqe-id'))
+                const noteUniqeId = Math.floor(Math.random() * 10000000000)
                 
                 folders.addNoteToFolder({
                     title: titleInput.value,
                     description: descriptionTextArea.value,
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value === '' ? 'No date' : dateInput.value
+                    date: dateInput.value === '' ? 'No date' : dateInput.value,
+                    ID: noteUniqeId
                 }, uniqeID)
 
                 folders.addNoteToData({
                     title: titleInput.value,
                     description: descriptionTextArea.value,
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
-                    date: dateInput.value
+                    date: dateInput.value,
+                    ID: noteUniqeId
                 }, uniqeID)
 
                 folders.showNotesInFolder()

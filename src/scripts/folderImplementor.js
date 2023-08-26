@@ -100,6 +100,7 @@ function addNoteToFolderImplementor({folders}) {
 
             const noteNode = document.createElement('div')
             noteNode.classList.add('notes__item', 'hidden')
+            noteNode.setAttribute('uniqe-id', note.ID)
             
             // Checkbox
             const checkboxInput = document.createElement('input')
@@ -129,15 +130,20 @@ function addNoteToFolderImplementor({folders}) {
             deleteBtn.src = trashBin
 
             deleteBtn.addEventListener('click', () => {
+                debugger
+
                 const requiredFolder = folders.find(folder => folder.folderNode.classList.contains('active'))
                 const indexToRemoveNode = requiredFolder.notes.findIndex(note => note === noteNode)
                 requiredFolder.notes.splice(indexToRemoveNode, 1)
                 noteNode.remove()
 
-                // const uniqeID = parseInt(requiredFolder.getAttribute('uniqe-id'))
+                const uniqeID = parseInt(requiredFolder.folderNode.getAttribute('uniqe-id'))
+                const noteUniqeId = parseInt(noteNode.getAttribute('uniqe-id'))
 
-                // const requiredFolderFromData = data.folders.find(folderObj => folderObj.ID === uniqeID)
-                // requiredFolderFromData.notes
+                const requiredFolderFromData = data.folders.find(folderObj => folderObj.ID === uniqeID)
+                const indexToRemoveNodeFromData = requiredFolderFromData.notes.findIndex(note => note.ID === noteUniqeId)
+                requiredFolderFromData.notes.splice(indexToRemoveNodeFromData, 1)
+                storage.updateData()
             })
 
             // Arrow Button
