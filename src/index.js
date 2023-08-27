@@ -53,6 +53,8 @@ addNoteBtn.addEventListener('click', () => {
 })
 
 searchBtn.addEventListener('click', () => {
+    if (searchInput.value.trim() === '') folders.showNotesInFolder()
+    
     folders.showNotesInFolder(searchInput.value)
     searchInput.value = ''
 })
