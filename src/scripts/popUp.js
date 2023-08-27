@@ -15,7 +15,7 @@ export function createPopUp(title = '', description = '', priority = 'low', date
     }
 }
 
-function showPopUp({title, description, priority, date}) {
+function showPopUp({title, description}) {
     return {
         show: () => {
             const windowWrap = document.querySelector('.wrap')
