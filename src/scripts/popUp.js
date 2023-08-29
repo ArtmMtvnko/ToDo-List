@@ -105,7 +105,7 @@ function showPopUp({title, description}) {
                 const noteUniqeId = Math.floor(Math.random() * 10000000000)
                 
                 folders.addNoteToFolder({
-                    title: titleInput.value,
+                    title: titleInput.value === '' ? 'New note' : titleInput.value,
                     description: descriptionTextArea.value,
                     priority: priorityValue([lowPriorityBtn, mediumPriorityBtn, highPriorityBtn]),
                     date: dateInput.value === '' ? 'No date' : dateInput.value,

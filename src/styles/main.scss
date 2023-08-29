@@ -11,8 +11,27 @@
     grid-template: minmax(50px, auto) 1fr / minmax(80px, 150px) minmax(200px, 1fr) minmax(80px, 100px);
     
     height: 80vh;
-    overflow-y:scroll;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
     @extend %card;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        margin: 20px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #c4c4c4;
+        border: 1px solid #fff;
+
+        &:hover {
+            background-color: #b3b3b3;
+        }
+    }
 
     .add-note {
         display: flex;

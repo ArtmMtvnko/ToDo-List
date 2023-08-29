@@ -109,14 +109,23 @@ function addNoteToFolderImplementor({folders}) {
             noteNode.classList.add('notes__item', 'hidden')
             noteNode.setAttribute('uniqe-id', note.ID)
             
-            // Checkbox
-            const checkboxInput = document.createElement('input')
-            checkboxInput.type = 'checkbox'
-
+            
             // Title
             const titleParagraph = document.createElement('p')
             titleParagraph.classList.add('notes__title')
             titleParagraph.textContent = note.title
+
+            // Checkbox
+            const checkboxInput = document.createElement('input')
+            checkboxInput.type = 'checkbox'
+
+            checkboxInput.addEventListener('click', () => {
+                if (checkboxInput.checked) {
+                    titleParagraph.style.textDecoration = 'line-through'
+                } else {
+                    titleParagraph.style.textDecoration = ''
+                }
+            })
 
             // Priority
             const priorityParagraph = document.createElement('p')
@@ -181,7 +190,6 @@ function addNoteToFolderImplementor({folders}) {
                     }
                 })
             })
-
 
             // HERE !!!!!!!!!!!!
 

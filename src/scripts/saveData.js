@@ -41,7 +41,7 @@ function loadSavedDataImplementor() {
 
                 folderObj.notes.forEach(note => {
                     folders.addNoteToFolder({
-                        title: note.title,
+                        title: note.title === '' ? 'New note' : note.title,
                         description: note.description,
                         priority: note.priority,
                         date: note.date === '' ? 'No date' : note.date,
