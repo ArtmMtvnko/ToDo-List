@@ -96,6 +96,10 @@
 
     transition: 0.3s;
 
+    input[type="checkbox"] {
+        transform: scale(1.5);
+    }
+
     &.hidden {
         grid-template: 50px 0px / auto repeat(6, 1fr);
         .notes__arrow-button {
